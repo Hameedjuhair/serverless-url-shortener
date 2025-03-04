@@ -1,0 +1,39 @@
+import json
+import boto3
+import random
+import string
+
+dynamodb = boto3.resource('dynamodb')
+table = dynamodb.Table('URLShortener')
+
+def generate_short_code():
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=6))
+
+def lambda_handler(event, context):
+    try:
+        body = json.loads(event['body'])
+        original_url = body.get('url')
+        
+        if not original_url:
+            return {"statusCode": 400, "body": json.dumps({"error": "URL required"})}
+        
+        # Generate unique short code
+        while True:
+            short_code = generate_short_code()
+            response = table.get_item(Key={'shortCode': short_code})
+            if 'Item' not in response:
+                break
+        
+        # Save to DynamoDB
+        table.put_item(Item={"shortCode": short_code, "originalURL": original_url})
+        
+        # Construct short URL (use hardcoded API Gateway URL temporarily)
+        short_url = f"https://dqhx3wpwq3.execute-api.us-east-1.amazonaws.com/prod/{short_code}"
+        
+        return {
+            "statusCode": 200,
+            "body": json.dumps({"short_url": short_url})
+        }
+    except Exception as e:
+        print(f"ERROR: {str(e)}")  # Check this in CloudWatch
+        return {"statusCode": 500, "body": json.dumps({"error": str(e)})}
