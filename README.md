@@ -28,7 +28,8 @@ Introduction
 		Created ClickAnalytics table (optional):
 
 		Partition Key: shortCode, Sort Key: timestamp.
-    
+                ![Alt Text](images/dynamodb tables.png)
+
 
 		Step 2: Lambda Functions
 
