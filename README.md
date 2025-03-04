@@ -29,7 +29,7 @@
   - Partition Key: `shortCode`
   - Sort Key: `timestamp`
 
-![DynamoDB Tables](https://github.com/hameedjuhair/serverless-url-shortener/images/dynamodb-tables.png)
+![DynamoDB Tables](images/dynamodb-tables.png)
 ![Table Content](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/table-content.png)
 
 ---
