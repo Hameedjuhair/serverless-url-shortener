@@ -111,5 +111,3 @@ https://your-api-gateway-url/prod/qFR0jP
 - ✅ Consider adding a deployment guide or Terraform script.
 
 ---
-
-💡 *Feel free to contribute, suggest improvements, or fork this project!* 🚀
