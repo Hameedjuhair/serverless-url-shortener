@@ -1,7 +1,3 @@
-# serverless-url-shortener
-
-WELCOME TO MY CHANNNEL
-
 Project: Serverless URL Shortener with Analytics (AWS)
 
 Introduction
