@@ -29,8 +29,8 @@
   - Partition Key: `shortCode`
   - Sort Key: `timestamp`
 
-![DynamoDB Tables](images/dynamodb-tables.png)
-![Table Content](images/table-content.png)
+![DynamoDB Tables](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/dynamodb-tables.png)
+![Table Content](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/table-content.png)
 
 ---
 
@@ -41,7 +41,7 @@
 - **`RedirectFunction`**
   - Redirects users to the original URL and logs clicks.
 
-![Lambda Functions](images/lambda-func.png)
+![Lambda Functions](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/lambda-func.png)
 
 ---
 
@@ -53,8 +53,8 @@
   - `GET /{short_code}` → Triggers `RedirectFunction`
 - **Enabled Lambda Proxy Integration**
 
-![API Gateway](images/api-gateway.png)
-![API Gateway Deploy](images/api-gateway-deploy.png)
+![API Gateway](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/api-gateway.png)
+![API Gateway Deploy](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/api-gateway-deploy.png)
 
 ---
 
@@ -76,7 +76,7 @@ Invoke-RestMethod `
 https://your-api-gateway-url/prod/qFR0jP
 ```
 
-![Output](images/output.png)
+![Output](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/output.png)
 
 ---
 
@@ -87,6 +87,8 @@ https://your-api-gateway-url/prod/qFR0jP
 | 🔧 **Lambda permissions errors** | Added IAM policies for DynamoDB access.        |
 | 🔧 **Short code collisions**     | Added a loop to regenerate codes until unique. |
 | 🔧 **API Gateway CORS errors**   | Added CORS headers to Lambda responses.        |
+
+![IAM Roles](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/iam-roles.png)
 
 ---
 
@@ -104,11 +106,10 @@ https://your-api-gateway-url/prod/qFR0jP
 
 ## 🔜 Next Steps
 
-- ✅ Ensure all images exist in the `images` folder.
+- ✅ Ensure all images exist in the repository assets.
 - ✅ Update the actual API Gateway URL before deploying.
 - ✅ Consider adding a deployment guide or Terraform script.
 
 ---
 
 💡 *Feel free to contribute, suggest improvements, or fork this project!* 🚀
-
