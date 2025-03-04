@@ -1,85 +1,114 @@
-Project: Serverless URL Shortener with Analytics (AWS)
+# Serverless URL Shortener with Analytics (AWS)
 
-Introduction
-	
- 	🎯 What I Built:
-	A serverless URL shortener that converts long URLs into short codes (e.g., https://gooogle.com/).
-	📊 Analytics: Tracks clicks per short URL using DynamoDB.
-	☁️ Why Serverless?: Cost-effective, scalable, and fully managed by AWS.
+## 🚀 Introduction
 
-2. Tools & Technologies
+### 🎯 What I Built:
 
-         AWS Lambda: Hosts logic for shortening URLs and redirecting users.
+- A serverless URL shortener that converts long URLs into short codes (e.g., `https://google.com/` → `https://short.ly/abc123`).
+- 📊 **Analytics**: Tracks clicks per short URL using DynamoDB.
+- ☁️ **Why Serverless?** Cost-effective, scalable, and fully managed by AWS.
 
-         Amazon DynamoDB: Stores short codes and click analytics.
+---
 
-         API Gateway: Creates HTTP endpoints for the URL shortener.
+## 🔧 Tools & Technologies
 
-         Python: Backend logic for Lambda functions.
+- **AWS Lambda** – Hosts logic for shortening URLs and redirecting users.
+- **Amazon DynamoDB** – Stores short codes and click analytics.
+- **API Gateway** – Creates HTTP endpoints for the URL shortener.
+- **Python** – Backend logic for Lambda functions.
 
-3. step by step process to create url shortener
+---
 
-		Step 1: Setup DynamoDB Tables
+## 🛠 Step-by-Step Process to Create URL Shortener
 
-		Created URLShortener table:
+### **Step 1: Setup DynamoDB Tables**
 
-		Partition Key: shortCode (String).
+- **Created `URLShortener` Table**
+  - Partition Key: `shortCode` (String).
+- **Created `ClickAnalytics` Table (Optional)**
+  - Partition Key: `shortCode`
+  - Sort Key: `timestamp`
 
-		Created ClickAnalytics table (optional):
+![DynamoDB Tables](images/dynamodb-tables.png)
+![Table Content](images/table-content.png)
 
-		Partition Key: shortCode, Sort Key: timestamp.
-                ![Alt Text](images/dynamodb tables.png)
+---
 
+### **Step 2: Lambda Functions**
 
-		Step 2: Lambda Functions
+- **`ShortenURLFunction`**
+  - Generates a random 6-character code (e.g., `abc123`).
+- **`RedirectFunction`**
+  - Redirects users to the original URL and logs clicks.
 
-		ShortenURLFunction:
-		Task: Generates a random 6-character code (e.g., abc123).
+![Lambda Functions](images/lambda-func.png)
 
-		RedirectFunction:
-		Task: Redirects users to the original URL and logs clicks.
+---
 
+### **Step 3: API Gateway Configuration**
 
+- **Created HTTP API:** `URLShortenerAPI`
+- **Defined Routes:**
+  - `POST /shorten` → Triggers `ShortenURLFunction`
+  - `GET /{short_code}` → Triggers `RedirectFunction`
+- **Enabled Lambda Proxy Integration**
 
-		Step 3: API Gateway Configuration
-		Created HTTP API named URLShortenerAPI.
+![API Gateway](images/api-gateway.png)
+![API Gateway Deploy](images/api-gateway-deploy.png)
 
-		Defined routes:
+---
 
-		POST /shorten → Triggers ShortenURLFunction.
+### **Step 4: Testing**
 
-		GET /{short_code} → Triggers RedirectFunction.
+#### **Shorten a URL**
 
-		Enabled Lambda Proxy Integration for both routes.
+```powershell
+Invoke-RestMethod `
+-Uri "https://your-api-gateway-url/prod/shorten" `
+-Method POST `
+-Headers @{ "Content-Type" = "application/json" } `
+-Body (ConvertTo-Json @{ "url" = "https://www.google.com/" })
+```
 
-		Step 4: Testing
-		Shorten a URL:
-				Invoke-RestMethod `-Uri "https://dqhx3wpwq3.execute-api.us-east-1.amazonaws.com/prod/shorten" ` -Method POST ` -Headers @{ "Content-Type" = "application/json" } `-Body (ConvertTo-Json @{ "url" = "https://www.google.com/" })
-		
-		Sample Response:
-				https://dqhx3wpwq3.execute-api.us-east-1.amazonaws.com/prod/qFR0jP
+#### **Sample Response**
 
-4. Challenges & Solutions
+```
+https://your-api-gateway-url/prod/qFR0jP
+```
 
-		🔧 Challenge 1: Lambda permissions errors.
+![Output](images/output.png)
 
-		Fix: Added IAM policies for DynamoDB access.
+---
 
-		🔧 Challenge 2: Short code collisions.
+## 🛠 Challenges & Solutions
 
-		Fix: Added a loop to regenerate codes until unique.
+| Challenge                        | Solution                                       |
+| -------------------------------- | ---------------------------------------------- |
+| 🔧 **Lambda permissions errors** | Added IAM policies for DynamoDB access.        |
+| 🔧 **Short code collisions**     | Added a loop to regenerate codes until unique. |
+| 🔧 **API Gateway CORS errors**   | Added CORS headers to Lambda responses.        |
 
-		🔧 Challenge 3: API Gateway CORS errors.
+---
 
-		Fix: Added CORS headers to Lambda responses.
+## 🎬 Final Output Demo
 
-6. Final Output Demo
+### **Shortening Flow:**
 
-		Shortening Flow:
-			User submits URL → API Gateway → Lambda → DynamoDB → Returns short 	URL.
+`User submits URL → API Gateway → Lambda → DynamoDB → Returns short URL`
 
-		Redirection Flow:
-			User clicks short URL → API Gateway → Lambda → Fetch from DynamoDB 	→ Redirect.
+### **Redirection Flow:**
 
+`User clicks short URL → API Gateway → Lambda → Fetch from DynamoDB → Redirect`
 
+---
+
+## 🔜 Next Steps
+
+- ✅ Ensure all images exist in the `images` folder.
+- ✅ Update the actual API Gateway URL before deploying.
+- ✅ Consider adding a deployment guide or Terraform script.
+
+---
+
+💡 *Feel free to contribute, suggest improvements, or fork this project!* 🚀
 
