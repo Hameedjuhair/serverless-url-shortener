@@ -30,7 +30,7 @@
   - Sort Key: `timestamp`
 
 ![DynamoDB Tables](images/dynamodb-tables.png)
-![Table Content](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/table-content.png)
+![Table Content](images/table-content.png)
 
 ---
 
@@ -41,7 +41,7 @@
 - **`RedirectFunction`**
   - Redirects users to the original URL and logs clicks.
 
-![Lambda Functions](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/lambda-func.png)
+![Lambda Functions](images/lambda-func.png)
 
 ---
 
@@ -53,8 +53,8 @@
   - `GET /{short_code}` → Triggers `RedirectFunction`
 - **Enabled Lambda Proxy Integration**
 
-![API Gateway](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/api-gateway.png)
-![API Gateway Deploy](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/api-gateway-deploy.png)
+![API Gateway](images/api-gateway.png)
+![API Gateway Deploy](images/api-gateway-deploy.png)
 
 ---
 
@@ -76,7 +76,7 @@ Invoke-RestMethod `
 https://your-api-gateway-url/prod/qFR0jP
 ```
 
-![Output](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/output.png)
+![Output](images/output.png)
 
 ---
 
@@ -88,7 +88,7 @@ https://your-api-gateway-url/prod/qFR0jP
 | 🔧 **Short code collisions**     | Added a loop to regenerate codes until unique. |
 | 🔧 **API Gateway CORS errors**   | Added CORS headers to Lambda responses.        |
 
-![IAM Roles](https://github.com/hameedjuhair/serverless-url-shortener/assets/1234567/iam-roles.png)
+![IAM Roles](images/iam-roles.png)
 
 ---
 
